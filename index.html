@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI - Monochromatic Interface</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for a sleeker look */
+        .scrollbar-custom::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+            background-color: #505050; /* accent-gray */
+            border-radius: 20px;
+        }
+        .scrollbar-custom {
+            scrollbar-color: #505050 transparent;
+        }
+
+        /* Set default font to Inter and enforce full height and scroll control */
+        body {
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; 
+            /* Background intentionally left deep black via Tailwind */
+        }
+
+        /* Styling the textarea to perfectly fit its content without scrollbars initially */
+        #chat-input {
+            transition: height 0.2s ease-out;
+            min-height: 2.5rem; /* Ensure minimum height */
+        }
+    </style>
+    <script>
+        // Updated Monochromatic Color Palette
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-deep': '#1E1E1E',   /* Main background (Dark Slate) */
+                        'card-dark': '#303030', /* Input/Card background (Lighter Slate) */
+                        'accent-gray': '#707070', /* Button/Border accent */
+                        'text-light': '#E0E0E0', /* Light text for contrast */
+                        'text-muted': '#A0A0A0', /* Muted gray for secondary text */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-bg-deep text-text-light flex flex-col h-screen">
+
+    <!-- 1. Top Navigation Bar -->
+    <header class="w-full bg-bg-deep border-b border-gray-800 py-4 px-6 flex justify-between items-center fixed top-0 z-10">
+        <!-- Logo/Product Name -->
+        <div class="flex items-center space-x-2 text-lg font-bold">
+            <svg class="w-6 h-6 text-accent-gray" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span class="hidden sm:inline">Nexus AI</span>
+        </div>
+
+        <!-- Links (Aligned to right, subtle) -->
+        <nav class="hidden md:flex space-x-6 text-sm text-text-muted">
+            <a href="#" class="hover:text-text-light transition duration-150">About</a>
+            <a href="#" class="hover:text-text-light transition duration-150">Features</a>
+            <a href="#" class="hover:text-text-light transition duration-150">Business</a>
+            <a href="#" class="hover:text-text-light transition duration-150">Pricing</a>
+        </nav>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-4">
+            <button class="px-3 py-1 text-sm font-medium text-text-muted hover:text-text-light border border-accent-gray rounded-lg transition duration-150">
+                Log in
+            </button>
+            <button class="px-3 py-1 text-sm font-medium bg-accent-gray text-white rounded-lg hover:bg-gray-600 transition duration-150">
+                Sign up for free
+            </button>
+            <svg class="w-5 h-5 text-text-muted cursor-pointer hover:text-text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9.228a4 4 0 014.242 0 4 4 0 010 5.656m-5.656 0a4 4 0 010-5.656 4 4 0 015.656 0m-2.828 5.656L12 17.5l-2.828-2.828"></path></svg>
+        </div>
+    </header>
+    
+    <!-- 2. Main Content Area (Centered) -->
+    <main class="flex flex-col items-center justify-center flex-1 w-full h-full pt-16 p-4 overflow-y-auto">
+
+        <!-- Central Greeting -->
+        <div class="text-center mb-10 mt-16 sm:mt-0">
+            <h1 class="text-3xl sm:text-4xl font-semibold text-text-light">
+                What can I help with?
+            </h1>
+        </div>
+
+        <!-- Centered Input Container -->
+        <div class="w-full max-w-2xl px-4">
+            <div class="bg-card-dark rounded-xl shadow-2xl p-3 flex flex-col space-y-3">
+                
+                <!-- Textarea and Voice Button -->
+                <div class="flex items-end space-x-2">
+                    <!-- Placeholder Textarea -->
+                    <textarea
+                        id="chat-input"
+                        rows="1"
+                        class="flex-1 p-1 bg-transparent text-text-light resize-none focus:outline-none focus:ring-0 overflow-hidden text-base placeholder:text-text-muted"
+                        placeholder="Ask anything..."
+                        oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';"
+                    ></textarea>
+
+                    <!-- Voice Button -->
+                    <button class="p-2 text-accent-gray hover:text-text-light rounded-lg transition duration-150 flex items-center space-x-1" title="Voice Input">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7v0m7-7a7 7 0 00-7-7v0m0 14a7 7 0 01-7-7v0m7 7a7 7 0 007-7v0m-7 7V7M7 11h10M12 2v2m0 16v2"></path></svg>
+                    </button>
+                </div>
+                
+                <!-- Utility Buttons (Attach, Search, Study) -->
+                <div class="flex items-center space-x-3 border-t border-gray-700 pt-3">
+                    
+                    <button class="px-3 py-1 text-sm font-medium text-text-muted bg-gray-700 rounded-full hover:bg-gray-600 transition duration-150 flex items-center space-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486l6.586-6.414"></path></svg>
+                        <span>Attach</span>
+                    </button>
+                    
+                    <button class="px-3 py-1 text-sm font-medium text-text-muted bg-gray-700 rounded-full hover:bg-gray-600 transition duration-150 flex items-center space-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <span>Search</span>
+                    </button>
+                    
+                    <button class="px-3 py-1 text-sm font-medium text-text-muted bg-gray-700 rounded-full hover:bg-gray-600 transition duration-150 flex items-center space-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13h2.204a2 2 0 011.83 1.116L18 10l-2 3-2.585 3.325a2 2 0 01-1.637.675H12m0-13h-2.204a2 2 0 00-1.83 1.116L6 10l2 3 2.585 3.325a2 2 0 001.637.675H12"></path></svg>
+                        <span>Study</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script>
+
+    </script>
+</body>
+</html>
